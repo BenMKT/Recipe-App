@@ -44,17 +44,33 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# Use Devise for authentication
+gem 'devise'
+gem 'letter_opener'
+
+# Use Cancancan for authorization
+gem 'cancancan'
+
+# Use Rubocop for linting in local environment
+gem 'rubocop', '>= 1.0', '< 2.0'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+
+  # Use RSpec for testing framework
+  gem 'rspec-rails'
+
+  # Capybara, the library that allows us to interact with the browser using Ruby
+  gem 'capybara'
+
+  # The following gems aids with the nuts and bolts of interacting with the browser.
+  gem 'webdrivers'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  
-  # Use RSpec for testing
-  gem 'rspec-rails'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -62,4 +78,3 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
-
