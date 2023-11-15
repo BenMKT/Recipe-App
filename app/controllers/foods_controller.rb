@@ -1,70 +1,62 @@
 class FoodsController < ApplicationController
-  before_action :set_food, only: %i[ show edit update destroy ]
+  # before_action :authenticate_user!
+  # def index
+  #   @foods = current_user.foods
+  # end
 
-  # GET /foods or /foods.json
-  def index
-    @foods = Food.all
-  end
+  # def new
+  #   @current_user = current_user
+  #   @food = Food.new
+  # end
 
-  # GET /foods/1 or /foods/1.json
-  def show
-  end
+  # def create
+  #   @food = current_user.foods.new(food_params)
 
-  # GET /foods/new
-  def new
-    @food = Food.new
-  end
+  #   if @food.save
+  #     flash[:success] = 'Food saved successfully'
+  #     redirect_to foods_path
+  #   else
+  #     flash.now[:error] = 'Error: Food could not be saved'
+  #     render 'new'
+  #   end
+  # end
 
-  # GET /foods/1/edit
-  def edit
-  end
+  # def destroy
+  #   @food = Food.find(params[:id])
+  #   @food.destroy
 
-  # POST /foods or /foods.json
-  def create
-    @food = Food.new(food_params)
+  #   redirect_to foods_url
+  # end
 
-    respond_to do |format|
-      if @food.save
-        format.html { redirect_to food_url(@food), notice: "Food was successfully created." }
-        format.json { render :show, status: :created, location: @food }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @food.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def general_shopping_list
+  #   @recipes = Recipe.where(user: current_user)
+  #   @general_food_list = Food.where(user: current_user)
+  #   @missing_food_items = []
 
-  # PATCH/PUT /foods/1 or /foods/1.json
-  def update
-    respond_to do |format|
-      if @food.update(food_params)
-        format.html { redirect_to food_url(@food), notice: "Food was successfully updated." }
-        format.json { render :show, status: :ok, location: @food }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @food.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   @recipes.each do |recipe|
+  #     recipe.recipe_foods.each do |recipe_food|
+  #       general_food = @general_food_list.find_by(id: recipe_food.food_id)
 
-  # DELETE /foods/1 or /foods/1.json
-  def destroy
-    @food.destroy!
+  #       next if general_food.nil? || general_food.quantity >= recipe_food.quantity
 
-    respond_to do |format|
-      format.html { redirect_to foods_url, notice: "Food was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  #       quantity_needed = recipe_food.quantity - general_food.quantity
+  #       price = recipe_food.food.price * quantity_needed
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_food
-      @food = Food.find(params[:id])
-    end
+  #       @missing_food_items << {
+  #         food_name: recipe_food.food.name,
+  #         quantity_needed:,
+  #         price:
+  #       }
+  #     end
+  #   end
 
-    # Only allow a list of trusted parameters through.
-    def food_params
-      params.require(:food).permit(:name, :measurement_unit, :price, :quantity, :user_id)
-    end
+  #   @total_food_items = @missing_food_items.sum { |item| item[:quantity_needed] }
+  #   @total_price = @missing_food_items.sum { |item| item[:price] }
+  # end
+
+  # private
+
+  # def food_params
+  #   params.require(:food).permit(:name, :measurement_unit, :price, :quantity)
+  # end
 end

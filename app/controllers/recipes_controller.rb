@@ -1,70 +1,91 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: %i[ show edit update destroy ]
+  # before_action :authenticate_user!
+  # before_action :set_recipe, only: %i[show edit update destroy toggle_public add_food create_food]
 
-  # GET /recipes or /recipes.json
-  def index
-    @recipes = Recipe.all
-  end
+  # def index
+  #   @recipes = current_user.recipes
+  #   @public_recipes = Recipe.where(public: true).order(created_at: :desc)
+  # end
 
-  # GET /recipes/1 or /recipes/1.json
-  def show
-  end
+  # def show
+  #   @recipe = Recipe.includes(recipe_foods: :food).find(params[:id])
+  #   @recipe_foods = @recipe.recipe_foods
+  #   @user = current_user
+  #   @food = Food.new if current_user == @recipe.user
+  # end
 
-  # GET /recipes/new
-  def new
-    @recipe = Recipe.new
-  end
+  # def new
+  #   @recipe = Recipe.new
+  # end
 
-  # GET /recipes/1/edit
-  def edit
-  end
+  # def create
+  #   @recipe = current_user.recipes.build(recipe_params)
+  #   if @recipe.save
+  #     redirect_to recipes_url, notice: 'Recipe was successfully created.'
+  #   else
+  #     render :new
+  #   end
+  # end
 
-  # POST /recipes or /recipes.json
-  def create
-    @recipe = Recipe.new(recipe_params)
+  # def edit
+  #   @recipe = Recipe.find(params[:id])
+  # end
 
-    respond_to do |format|
-      if @recipe.save
-        format.html { redirect_to recipe_url(@recipe), notice: "Recipe was successfully created." }
-        format.json { render :show, status: :created, location: @recipe }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def destroy
+  #   @recipe = Recipe.find(params[:id])
 
-  # PATCH/PUT /recipes/1 or /recipes/1.json
-  def update
-    respond_to do |format|
-      if @recipe.update(recipe_params)
-        format.html { redirect_to recipe_url(@recipe), notice: "Recipe was successfully updated." }
-        format.json { render :show, status: :ok, location: @recipe }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   if current_user == @recipe.user
+  #     @recipe.destroy
+  #     redirect_to recipes_url, notice: 'Recipe was successfully deleted.'
+  #   else
+  #     redirect_to recipes_url, alert: 'You are not authorized to delete this recipe.'
+  #   end
+  # end
 
-  # DELETE /recipes/1 or /recipes/1.json
-  def destroy
-    @recipe.destroy!
+  # def toggle_public
+  #   @recipe = Recipe.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to recipes_url, notice: "Recipe was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  #   if current_user == @recipe.user
+  #     @recipe.toggle!(:public)
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_recipe
-      @recipe = Recipe.find(params[:id])
-    end
+  #     notice_message = if @recipe.public?
+  #                        'Recipe is now public.'
+  #                      else
+  #                        'Recipe is now private.'
+  #                      end
+  #   else
+  #     notice_message = 'You are not authorized to update this recipe.'
+  #   end
 
-    # Only allow a list of trusted parameters through.
-    def recipe_params
-      params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public, :user_id)
-    end
+  #   redirect_to recipe_path(@recipe), notice: notice_message
+  # end
+
+  # private
+
+  # def set_recipe
+  #   @recipe = Recipe.find(params[:id])
+  # end
+
+  # def recipe_params
+  #   params.require(:recipe).permit(:name, :description, :preparation_time, :cooking_time, :public, :user_id)
+  # end
+
+  # def food_params
+  #   params.require(:food).permit(:name, :quantity, :unit)
+  # end
+
+  # def shopping_list
+  #   @recipe = Recipe.find(params[:id])
+  #   @recipe_foods = @recipe.recipe_foods
+  # end
+
+  # def add_ingredient
+  #   @recipe = Recipe.find(params[:id])
+  #   @food = Food.new
+  # end
+
+  # def public_recipes
+  #   @public_recipes = Recipe.where(public: true).order(created_at: :desc)
+  #   render 'public_index'
+  # end
 end
