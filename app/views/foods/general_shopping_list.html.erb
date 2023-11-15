@@ -1,0 +1,34 @@
+<div class="detailsDiv" id="shopping">
+<h1>Shopping List</h1>
+
+<% if @missing_food_items.any? %>
+<div class="total_info">
+  <p>Amount of food to buy: <%= @total_food_items %></p>
+  <p>Total value of food need: <%= @total_price %></p>
+  </div>
+  <div class="tableDiv">
+  <table>
+  <thead>
+    <tr>
+      <th>Food </th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @missing_food_items.each do |item| %>
+      <tr>
+      <td><%= item[:food_name] %></td>
+      <td> <%= item[:quantity_needed] %></td>
+      <td> $<%= item[:price] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+
+<% else %>
+  <p>No missing food items.</p>
+  </div>
+<% end %>
+
+</div>

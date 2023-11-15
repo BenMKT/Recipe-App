@@ -1,47 +1,44 @@
-<%= form_with(model: recipe) do |form| %>
-  <% if recipe.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+<div class="cont">
+<%= form_for(@recipe) do |f| %>
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipe.errors.count, 'error') %> prohibited this recipe from being saved:</h2>
 
       <ul>
-        <% recipe.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :preparation_time, style: "display: block" %>
-    <%= form.number_field :preparation_time %>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
   </div>
 
-  <div>
-    <%= form.label :cooking_time, style: "display: block" %>
-    <%= form.number_field :cooking_time %>
-  </div>
+  <div >
+  <%= f.label :preparation_time %> in hour
+  <%= f.number_field :preparation_time %>
+</div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
+<div>
+  <%=f.label :cooking_time%> in hour
+  <%= f.number_field :cooking_time %>
+</div>
 
-  <div>
-    <%= form.label :public, style: "display: block" %>
-    <%= form.check_box :public %>
-  </div>
+<div>
+  <%= f.check_box :public%>
+  <%= f.label :public %>
+</div>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="actions">
+    <%= f.submit 'Save' %>
   </div>
 <% end %>
+</div>
