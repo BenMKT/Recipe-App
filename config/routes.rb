@@ -1,12 +1,31 @@
 Rails.application.routes.draw do
+  get 'public_recipes/index'
+  get 'recipe_steps/new'
+  get 'recipe_steps/create'
   devise_for :users
-  resources :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  devise_scope :user do
+    get "/custom_sign_out" => "devise/sessions#destroy", as: :custom_destroy_user_session
+  end
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  resources :public_recipes, only: [:index]
+
+  resources :users, only: [] do
+    resources :recipes, only: [:index]
+  end
+
+  resources :recipes, except: [:update] do
+    member do
+      patch 'toggle_public'
+      patch 'update_times'
+      get 'new_step', to: 'recipe_steps#new'
+      post 'create_step', to: 'recipe_steps#create'
+    end
+
+    resources :recipe_foods, only: [:new, :create, :destroy, :edit, :update]
+  end
+
+  root to: 'foods#index'
+  resources :foods, only: [:index, :new, :create, :destroy]
+  get '/general_shopping_list', to: 'foods#general_shopping_list', as: 'general_shopping_list'
 end

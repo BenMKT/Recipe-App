@@ -1,0 +1,28 @@
+<h2>Avaliable food</h2>
+<div class="tableDiv">
+<div id="is_public"><%= link_to 'Add Food', new_food_path, class: "add-button" %></div>
+<% if @foods.any? %>
+<table>
+  <thead>
+    <tr>
+      <th>Food </th>
+      <th>Measurement unit</th>
+      <th>Unit price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @foods.each do |food| %>
+    <tr>
+      <td><%= food.name %></td>
+      <td><%= food.measurement_unit %></td>
+      <td>$<%= food.price %></td>
+      <td class="Delete"><%= button_to "Delete Food", food_path(food), method: :delete, data: { confirm: "Are you sure?" } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+<% else %>
+   <p>There is no food you have.</p>
+<% end %>

@@ -1,0 +1,56 @@
+<div class="detailsDiv">
+<h1><%= @recipe.name %></h1>
+<% if current_user == @recipe.user || @recipe.public %>
+  <%= render 'recipe_details', recipe: @recipe %>
+<% else %>
+  <p>This recipe is private.</p>
+<% end %>
+
+<% if current_user == @recipe.user %>
+
+<div class="buttons" id="is_public">
+  <%= button_to(@recipe.public? ? "Make it Private" : "Make it Public", toggle_public_recipe_path(@recipe), method: :patch, class: "toggle-button #{'private' unless @recipe.public?}") %>
+</div>
+<% end %>
+
+<div class="names">
+  <p class="time"><strong><%= @recipe.editing_times? ? @recipe.preparation_time : "preparation_time: #{@recipe.preparation_time} hours" %></p>
+  <p class="time"><%= @recipe.editing_times? ? @recipe.cooking_time : "cooking_time: #{@recipe.cooking_time} hours" %></p>
+  <p class="steps">Steps go here...</p>
+</div>
+
+<%= link_to "Generate shopping list", general_shopping_list_path, class: 'btn btn-primary'  %>
+<% if current_user == @recipe.user%>
+<%= link_to "Add ingredient", new_recipe_recipe_food_path(recipe_id: @recipe.id), class: 'btn btn-primary'  %>
+<% end %>
+<% if @recipe.recipe_foods.includes(:food).any? %>
+<div class="tableDiv">
+<table>
+<thead>
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Value</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @recipe.recipe_foods.includes(:food).each do |recipe_food| %>
+    <tr>
+      <td><%= recipe_food.food.name %></td>
+      <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit %></td>
+      <td>$ <%= recipe_food.quantity * recipe_food.food.price %></td>
+      <td class="recipe-food-actions">
+      <% if current_user == @recipe.user %>
+         <%= link_to 'Modify', edit_recipe_recipe_food_path(recipe_food) %> 
+        <span class="Delete"><%= button_to  'Remove',  recipe_recipe_food_path(recipe_food), class: "btn-delete", method: :delete, data: { confirm: 'Are you sure?' } %></span>
+       <% end %>
+       </td>
+    </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</table>
+<% end %>
+</div>

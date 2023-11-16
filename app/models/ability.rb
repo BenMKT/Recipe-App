@@ -7,6 +7,6 @@ class Ability
 
     # Define a few sample abilities
     can :manage, Food
-    cannot :manage, Recipe
+    can :manage, Recipe
   end
 end

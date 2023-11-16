@@ -1,0 +1,15 @@
+<div class="cont">
+<h1 class="title">Edit recipe food</h1>
+
+<div>
+   <%= form_with model: @recipe_food, url: recipe_recipe_food_path(@recipe.id, @recipe_food.id), class: "form-container", method: :patch do |f| %>
+        <div >
+            <%= f.label :quantity %>
+            <%= f.number_field :quantity, placeholder: 'New Quantity',  min: 0 %>
+        </div>
+        <div>
+            <%= f.submit 'Update quantity' %>
+        </div>
+    <% end %>
+</div>
+<div>
