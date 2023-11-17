@@ -14,6 +14,10 @@
       <%= f.text_field :price, placeholder: "$ Enter the price" %>
     </div>
     <div>
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity, placeholder: "Quantity", step: 'any' %>
+    </div>
+    <div>
       <%= f.submit "Add food" %>
     </div>
   <% end %>

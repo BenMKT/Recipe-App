@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'public_recipes/index'
-  get 'recipe_steps/new'
-  get 'recipe_steps/create'
+  # get 'public_recipes/index'
   devise_for :users
 
   devise_scope :user do
@@ -10,21 +8,16 @@ Rails.application.routes.draw do
 
   resources :public_recipes, only: [:index]
 
-  resources :users, only: [] do
-    resources :recipes, only: [:index]
-  end
-
-  resources :recipes, except: [:update] do
-    member do
-      patch 'toggle_public'
-      patch 'update_times'
-      get 'new_step', to: 'recipe_steps#new'
-      post 'create_step', to: 'recipe_steps#create'
-    end
-
+  resources :recipes, only: [:index, :new, :create, :destroy, :show] do
     resources :recipe_foods, only: [:new, :create, :destroy, :edit, :update]
+    get 'public_recipes_list', on: :collection
+    get 'recipe_details/:id', to: 'recipes#recipe_details', on: :member, as: :recipe_details
+    post 'toggle_public/:id', to: 'recipes#toggle_public', on: :member, as: :toggle_public
   end
-
+  
+  resources :recipe_foods, only: [:new, :create, :destroy, :edit, :update]
+  
+  
   root to: 'foods#index'
   resources :foods, only: [:index, :new, :create, :destroy]
   get '/general_shopping_list', to: 'foods#general_shopping_list', as: 'general_shopping_list'

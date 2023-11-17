@@ -288,6 +288,7 @@ footer {
 
 .recipe {
   display: flex;
+  flex-direction: row;
   background-color: rgb(109 111 107);
   opacity: 0.8;
   color: #fcfcfc;
@@ -300,7 +301,6 @@ footer {
 
 .recipe div {
   display: flex;
-  flex-direction: column;
   gap: 1em;
 }
 

@@ -5,9 +5,9 @@
   <div class="recipe">
   <div>
     <p class="recipe_name"><%= link_to recipe.name, recipe_path(recipe) %></p>
+    <p class="recipe_name"><%= recipe.description %></p>
     <span class="Delete"><%= button_to "Remove", recipe_path(recipe.id), method: :delete, data: { confirm: "Are you sure?" } %></span>
     </div>
-    <p><%= recipe.description %></p>
   </div>
 <% end %>
 
