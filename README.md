@@ -10,6 +10,7 @@ Introducing the Recipe App: Your all-in-one solution for effortless cooking! Sea
 
 - [Tech Stack](#tech-stack) 🛠️
 - [Key Features](#key-features) ✨
+- [Live Demo](#live-demo) 🚀
 - [Getting Started](#getting-started) 🚀
   - [Setup](#setup) 🔧
   - [Installation](#installation) ⚙️
@@ -63,6 +64,15 @@ Introducing the Recipe App: Your all-in-one solution for effortless cooking! Sea
 - [x] Integration tests to cover user interactions.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LIVE DEMO -->
+
+## 🚀 Live Demo <a name="live-demo"></a>
+
+- [Live Demo Link](https://ror-recipeapp.onrender.com)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- GETTING STARTED -->
 
@@ -269,6 +279,7 @@ rspec spec/models/food.rb
 ## 🌟 Future Features <a name="future-features"></a>
 
 - [ ] Infinite scrolling or pagination
+- [ ] Deployment
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
