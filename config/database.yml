@@ -79,7 +79,7 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['postgres://recipeapp_3c73_user:p9hXfblWc6mkBINnMV07JQu8SGsENi8X@dpg-clg6oref27hc739h6hig-a/recipeapp_3c73'] %>
   database: receipe_app_production
   username: receipe_app
   password: <%= ENV["RECEIPE_APP_DATABASE_PASSWORD"] %>
