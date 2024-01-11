@@ -1,0 +1,15 @@
+<h1>Recipes</h1>
+
+<div class="recipeDiv">
+<% @recipes.each do |recipe| %>
+  <div class="recipe">
+  <div>
+    <p class="recipe_name"><%= link_to recipe.name, recipe_path(recipe) %></p>
+    <p class="recipe_name"><%= recipe.description %></p>
+    <span class="Delete"><%= button_to "Remove", recipe_path(recipe.id), method: :delete, data: { confirm: "Are you sure?" } %></span>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to 'New Recipe', new_recipe_path, class: 'new-recipe-link' %>
+</div>
